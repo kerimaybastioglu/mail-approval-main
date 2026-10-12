@@ -1,0 +1,17 @@
+[data-message-type="Error"] .sapMMessagePageIcon::before {
+    color: #b00 !important;
+}
+
+[data-message-type="Success"] .sapMMessagePageIcon::before {
+    color: #107e3e !important;
+    
+}   
+
+.sapMBtnIcon::before {
+    font-size: 1rem !important;
+    color: inherit !important;
+}
+
+.sapMMessagePageIcon::before {
+    font-size:6rem !important;
+}

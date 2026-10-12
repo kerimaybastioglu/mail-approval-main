@@ -1,0 +1,25 @@
+{
+  "name": "mail-approval-odata-master",
+  "version": "1.0.0",
+  "description": "Mail approval with ODATA",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "http-proxy": "^1.18.1",
+    "joi": "^17.13.3",
+    "js2xmlparser": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "node-ui5": "^2.0.4",
+    "xml2js": "^0.6.2"
+  }
+}

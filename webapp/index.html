@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İş Akışı Onayları</title>
+    <style>
+        /* Loading indicator styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e0e0e0;
+            border-top: 4px solid #0078d4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        /* Hide loading when UI5 is ready */
+        .ui5-ready .loading-overlay {
+            display: none;
+        }
+
+        /* Main app container - initially hidden */
+        #content {
+            display: none;
+        }
+
+        .ui5-ready #content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Indicator -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">
+            Uygulama yükleniyor...<br>
+            <small>Lütfen uygulama yüklenirken pencereyi kapatmayın</small>
+        </div>
+    </div>
+
+    <!-- Main App Content -->
+    <div id="content">
+        <!-- Your SAP UI5 app content goes here -->
+		<div data-sap-ui-component data-name="workflow.approvals.com.kizilay" data-id="container" data-settings='{"id" : "workflow.approvals"}'></div>
+    </div>
+
+    <!-- SAP UI5 Bootstrap -->
+	<script
+		id="sap-ui-bootstrap"
+		src="https://openui5.hana.ondemand.com/1.136.2/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_fiori_3"
+		data-sap-ui-libs="sap.m,sap.ui.core"
+		data-sap-ui-resourceroots='{
+			"workflow.approvals.com.kizilay": "./"
+		}'
+		data-sap-ui-oninit="onUI5Init"
+		data-sap-ui-compatVersion="edge"
+		data-sap-ui-async="false"
+        >
+	</script>
+
+    <script>
+        // Function called when UI5 is initialized
+        function onUI5Init() {
+            sap.ui.getCore().attachInit(function() {
+                // UI5 Core is now fully loaded
+                console.log("SAP UI5 Core loaded successfully");
+                
+                // Add class to body to indicate UI5 is ready
+                document.body.classList.add('ui5-ready');
+                
+                // Optional: Add a small delay for smooth transition
+                setTimeout(function() {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 300);
+            });
+
+			sap.ui.require([
+                    "sap/ui/core/ComponentContainer"
+                ], function(ComponentContainer) {
+                    
+                    // Create and start the Component
+                    var oComponentContainer = new ComponentContainer({
+                        name: "workflow.approvals.com.kizilay", // Replace with your actual component namespace
+                        settings: {
+                            id: "workflow.approvals.com.kizilay"
+                        },
+                        async: true
+                    });
+                    
+                    // Place the component container in the DOM
+                    oComponentContainer.placeAt("content");
+                });
+        }
+
+        // Alternative approach: Listen for UI5 ready event
+        window.addEventListener('load', function() {
+            // Fallback timeout in case UI5 takes too long
+            setTimeout(function() {
+                if (!document.body.classList.contains('ui5-ready')) {
+                    console.warn("UI5 loading timeout - showing app anyway");
+                    document.body.classList.add('ui5-ready');
+                }
+            }, 10000); // 10 second timeout
+        });
+    </script>
+</body>
+</html>

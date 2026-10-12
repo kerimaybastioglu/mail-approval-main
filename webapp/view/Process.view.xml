@@ -1,0 +1,21 @@
+<mvc:View
+	controllerName="workflow.approvals.com.kizilay.controller.Process"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
+	<MessagePage showHeader="false"
+				 text="{appModel>/message/text}"
+				 enableFormattedText="true"
+				 description="{appModel>/message/description}"
+				 icon="{appModel>/message/icon}"
+                 visible="{appModel>/message/visible}">
+        <customData>
+            <core:CustomData key="message-type" value="{appModel>/message/type}" writeToDom="true"/>
+        </customData>
+		<buttons>
+			<Button text="{i18n>CLOSE_PAGE}" press=".onClosePage" type="Reject" icon="sap-icon://decline"/>
+			<!-- <Button text="{i18n>GO_TO_IKONLINE}" press=".onOpenFiori" type="Emphasized"
+			icon="sap-icon://home"/> -->
+		</buttons>
+	</MessagePage>
+</mvc:View>
